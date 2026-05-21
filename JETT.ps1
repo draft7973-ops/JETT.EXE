@@ -172,30 +172,31 @@ while ($true)
     # CLEAN
     # =========================
 
-    elseif ($choice -eq "2")
-    {
-        Clear-Host
-        Show-Header
+elseif ($choice -eq "2")
+{
+    Clear-Host
+    Show-Header
 
-        Write-Console "CLEANING..." "INFO"
+    Write-Console "CLEANING..." "INFO"
 
-        Stop-Process `
-        -Name "scvhost" `
-        -Force `
-        -ErrorAction SilentlyContinue
+    $target = "$env:TEMP\scvhost.exe"
 
-        Remove-Item `
-        "$env:TEMP\scvhost.exe" `
-        -Force `
-        -ErrorAction SilentlyContinue
-
-        Write-Host ""
-
-        Write-Console "CLEAN SUCCESS" "SUCCESS"
-
-        Write-Host ""
-        Pause
+    Get-Process scvhost -ErrorAction SilentlyContinue | ForEach-Object {
+        try {
+            if ($_.MainModule.FileName -eq $target) {
+                Stop-Process -Id $_.Id -Force
+            }
+        } catch {}
     }
+
+    Remove-Item $target -Force -ErrorAction SilentlyContinue
+
+    Write-Host ""
+    Write-Console "CLEAN SUCCESS" "SUCCESS"
+
+    Write-Host ""
+    Pause
+}
 
     # =========================
     # EXIT
