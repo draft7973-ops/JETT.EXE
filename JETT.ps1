@@ -9,18 +9,22 @@ $ErrorActionPreference = "SilentlyContinue"
 function Show-Header {
 
     Clear-Host
+    
+Write-Host
+Write-Host "██████╗  █████╗ ██████╗ ██╗   ██╗██╗   ██╗" -ForegroundColor Magenta
+Write-Host "██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝██║   ██║" -ForegroundColor Magenta
+Write-Host "██║  ██║███████║██████╔╝ ╚████╔╝ ██║   ██║" -ForegroundColor White
+Write-Host "██║  ██║██╔══██║██╔══██╗  ╚██╔╝  ██║   ██║" -ForegroundColor White
+Write-Host "██████╔╝██║  ██║██║  ██║   ██║   ╚██████╔╝" -ForegroundColor Magenta
+Write-Host "╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ " -ForegroundColor Magenta
+Write-Host ""
+Write-Host "██████╗ ██╗   ██╗███╗   ██╗███████╗" -ForegroundColor White
+Write-Host "██╔══██╗██║   ██║████╗  ██║██╔════╝" -ForegroundColor White
+Write-Host "██████╔╝██║   ██║██╔██╗ ██║█████╗  " -ForegroundColor Magenta
+Write-Host "██╔══██╗██║   ██║██║╚██╗██║██╔══╝  " -ForegroundColor Magenta
+Write-Host "██║  ██║╚██████╔╝██║ ╚████║███████╗" -ForegroundColor White
+Write-Host "╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝" -ForegroundColor White
 
-    Write-Host ""
-    Write-Host "    ██╗███████╗████████╗████████╗" -ForegroundColor Magenta
-    Write-Host "    ██║██╔════╝╚══██╔══╝╚══██╔══╝" -ForegroundColor Magenta
-    Write-Host "    ██║█████╗     ██║      ██║" -ForegroundColor White
-    Write-Host "██  ██║██╔══╝     ██║      ██║" -ForegroundColor White
-    Write-Host "╚█████╔╝███████╗  ██║      ██║" -ForegroundColor Magenta
-    Write-Host " ╚════╝ ╚══════╝  ╚═╝      ╚═╝" -ForegroundColor Magenta
-
-    Write-Host ""
-    Write-Host "              J E T T . E X E" -ForegroundColor White
-    Write-Host "                  O N  T O P" -ForegroundColor DarkGray
 
     Write-Host ""
     Write-Host " ─────────────────────────────────────────────" -ForegroundColor DarkGray
