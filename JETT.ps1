@@ -108,8 +108,8 @@ while ($true)
 {
     Show-Header
 
-    Write-Console "1. INSTALL" "INFO"
-    Write-Console "2. CLEAN" "INFO"
+    Write-Console "1. PLAY" "INFO"
+    Write-Console "2. CLEAR" "INFO"
     Write-Console "0. EXIT" "INFO"
 
     Write-Host ""
